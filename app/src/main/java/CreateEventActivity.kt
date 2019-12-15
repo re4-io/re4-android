@@ -17,27 +17,14 @@
 
 package io.re4
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class CreateEventActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+
+        setContentView(R.layout.create_event_activity)
     }
 
-    public fun createEvent(view: View) {
-        val intent = Intent(this, CreateEventActivity::class.java)
-        startActivity(intent)
-    }
-
-    external fun ping(): Int
-
-    companion object {
-        init {
-            System.loadLibrary("re4-jni")
-        }
-    }
 }
