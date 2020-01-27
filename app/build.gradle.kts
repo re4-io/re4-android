@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.1.0")
     implementation("androidx.core:core-ktx:1.1.0")
     implementation("androidx.coordinatorlayout:coordinatorlayout:1.1.0")
+    implementation("androidx.paging:paging-runtime-ktx:2.1.1")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("com.google.android.material:material:1.0.0")
 }
