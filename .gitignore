@@ -6,3 +6,5 @@ local.properties
 
 build/
 .cxx/
+
+app/src/main/cpp/re4

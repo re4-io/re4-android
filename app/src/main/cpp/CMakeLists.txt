@@ -15,7 +15,7 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/re4/cmake")
+add_subdirectory(re4)
 
 add_library(re4-jni SHARED re4.cpp)
-target_link_libraries(re4-jni android)
+target_link_libraries(re4-jni android re4)

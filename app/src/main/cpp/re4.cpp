@@ -16,6 +16,7 @@
  */
 
 #include <jni.h>
+#include <re4/Re4.h>
 
 #ifdef __cplusplus
 extern "C" {
