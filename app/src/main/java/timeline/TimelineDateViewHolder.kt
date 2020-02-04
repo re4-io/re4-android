@@ -27,6 +27,7 @@ import java.time.LocalDate
 
 class TimelineDateViewHolder(private val view: TimelineDateViewBinding)
     : RecyclerView.ViewHolder(view.root) {
+    var date: LocalDate? = null
 
     private val colorWeekDay: Int
     private val colorWeekendDay: Int
@@ -46,6 +47,7 @@ class TimelineDateViewHolder(private val view: TimelineDateViewBinding)
     }
 
     fun bind(date: LocalDate?) {
+        this.date = date
 
         when(date!!.dayOfWeek) {
             DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> {

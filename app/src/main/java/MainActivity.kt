@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019  Vladimir Berlev
+ * Copyright (C) 2019-2020  Vladimir Berlev
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,27 @@ package io.re4
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import io.re4.timeline.TimelineViewModel
+import kotlinx.android.synthetic.main.main_activity.*
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        val timelineViewModel: TimelineViewModel by viewModels()
+
+        timelineViewModel.date.observe(this,  Observer<LocalDate>{ date ->
+            toolbar.title = date.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+            toolbar.subtitle = date.year.toString()
+        })
     }
 
     public fun createEvent(view: View) {
