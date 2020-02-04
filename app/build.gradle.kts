@@ -25,7 +25,7 @@ android {
     compileSdkVersion(28)
     defaultConfig {
         applicationId = "io.re4"
-        minSdkVersion(21)
+        minSdkVersion(26)
         targetSdkVersion(28)
         versionCode = 1
         versionName = "1.0.0"
