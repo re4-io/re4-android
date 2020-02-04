@@ -31,6 +31,9 @@ android {
         versionName = "1.0.0"
         vectorDrawables.useSupportLibrary = true
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
     dataBinding {
         isEnabled = true
     }
