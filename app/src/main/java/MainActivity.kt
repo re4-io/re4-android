@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         setSupportActionBar(findViewById(R.id.toolbar))
+        collapsingToolbarLayout.isTitleEnabled = false
+
+        toolbar.setOnClickListener { app_bar_layout.setExpanded(true) }
 
         val timelineViewModel: TimelineViewModel by viewModels()
 

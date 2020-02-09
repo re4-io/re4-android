@@ -28,15 +28,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.re4.R
+import io.re4.month.MonthViewModel
 import kotlinx.android.synthetic.main.timeline_fragment.view.*
 import java.time.LocalDate
 
 class TimelineFragment : Fragment() {
-    lateinit var adapter: TimelineDateAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var layoutManager: LinearLayoutManager
 
     val timelineViewModel: TimelineViewModel by activityViewModels()
+    val monthViewModel: MonthViewModel by activityViewModels()
 
     val config = PagedList.Config.Builder()
             .setPageSize(10)
@@ -55,9 +56,6 @@ class TimelineFragment : Fragment() {
 
         recyclerView = view.recyclerView
 
-        adapter = TimelineDateAdapter()
-        recyclerView.adapter = adapter
-
         layoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = layoutManager
 
@@ -72,14 +70,25 @@ class TimelineFragment : Fragment() {
             }
         })
 
-        val pagedList = LivePagedListBuilder<LocalDate, LocalDate>(TimelineDataSource.Factory(), config)
-                .setInitialLoadKey(timelineViewModel.date.value).build()
+        loadDate(timelineViewModel.date.value!!)
 
-        pagedList.observe(viewLifecycleOwner, Observer {
-            list -> adapter.submitList(list)
+        monthViewModel.date.observe(viewLifecycleOwner, Observer {
+            date -> loadDate(date)
         })
 
         return view
+    }
+
+    private fun loadDate(date: LocalDate) {
+        LivePagedListBuilder<LocalDate, LocalDate>(TimelineDataSource.Factory(), config)
+                .setInitialLoadKey(date)
+                .build()
+                .observe(viewLifecycleOwner, Observer { list ->
+                    val adapter = TimelineDateAdapter()
+                    recyclerView.swapAdapter(adapter, false)
+                    recyclerView.stopScroll()
+                    adapter.submitList(list)
+                })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -89,13 +98,7 @@ class TimelineFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.today -> {
-                val pagedList = LivePagedListBuilder<LocalDate, LocalDate>(TimelineDataSource.Factory(), config)
-                        .setInitialLoadKey(LocalDate.now()).build()
-                pagedList.observe(viewLifecycleOwner, Observer { list ->
-                    recyclerView.removeAllViewsInLayout()
-                    recyclerView.stopScroll()
-                    adapter.submitList(list)
-                })
+                loadDate(LocalDate.now())
                 true
             }
             else -> {
