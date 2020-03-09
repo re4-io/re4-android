@@ -23,6 +23,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import io.re4.timeline.TimelineViewModel
 import kotlinx.android.synthetic.main.main_activity.*
 import java.time.LocalDate
@@ -37,6 +40,11 @@ class MainActivity : AppCompatActivity() {
         collapsingToolbarLayout.isTitleEnabled = false
 
         toolbar.setOnClickListener { app_bar_layout.setExpanded(true) }
+
+        val navController = nav_host_fragment.findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
+        collapsingToolbarLayout.setupWithNavController(toolbar, navController, appBarConfiguration)
+        nav_view.setupWithNavController(navController)
 
         val timelineViewModel: TimelineViewModel by viewModels()
 
