@@ -19,6 +19,7 @@ package io.re4.timeline
 
 import android.graphics.Color
 import android.util.TypedValue
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import io.re4.R
 import io.re4.databinding.TimelineDateViewBinding
@@ -61,5 +62,10 @@ class TimelineDateViewHolder(private val view: TimelineDateViewBinding)
         }
 
         view.date = date
+
+        view.root.setOnClickListener {
+            val action = TimelineFragmentDirections.timelineFragmentToDayFragment()
+            view.root.findNavController().navigate(action)
+        }
     }
 }
