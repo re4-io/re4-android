@@ -85,6 +85,7 @@ class TimelineFragment : Fragment() {
                 .build()
                 .observe(viewLifecycleOwner, Observer { list ->
                     val adapter = TimelineDateAdapter()
+                    recyclerView.removeAllViewsInLayout()
                     recyclerView.swapAdapter(adapter, false)
                     recyclerView.stopScroll()
                     adapter.submitList(list)
